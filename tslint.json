@@ -7,7 +7,6 @@
     "no-var-requires": [false],
     "object-literal-key-quotes": false,
     "object-literal-sort-keys": [false],
-    "quotemark": [true, "single"],
-    "trailing-comma": [false]
+    "quotemark": [true, "single"]
   }
 }

@@ -23,7 +23,46 @@ npm install --save-dev eslint eslint-formatter-git-log
 ## 🕹 Usage
 
 ```
-eslint --format=git-log file.js
+eslint --format 'git-log' file.js
+```
+
+## ⚖️ Configuration
+
+This formatter is written to be as customisable as possible. To create a
+customised version of the formatter you can create a file somewhere in your
+project which follows the structure below.
+
+For this example I am using the default values. You do not need to provide a
+value for every configuration item, only those you want to change.
+
+```js
+const gitLogFormatter = require('eslint-formatter-git-log');
+const chalk = require('chalk');
+
+module.exports = gitLogFormatter.withConfig({
+  style: {
+    error: chalk.red,
+    filePath: chalk.underline,
+    warning: chalk.yellow,
+    location: chalk.dim,
+    rule: chalk.dim,
+    commit: chalk.magenta,
+    date: chalk.greenBright,
+    email: chalk.blueBright,
+  },
+  gutter: '  ',
+  label: {
+    error: 'error',
+    warning: 'warning',
+  },
+  locationColumnWidth: 8,
+});
+```
+
+Then point at your custom formatter instead of the default like so:
+
+```
+eslint --format './path-to-your-custom-formatter.js' file.js
 ```
 
 ## ❓ Getting Help
