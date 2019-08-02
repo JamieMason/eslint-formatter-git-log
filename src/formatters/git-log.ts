@@ -119,30 +119,28 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
     return results.reduce((output, { filePath, messages }) => {
       if (messages.length > 0) {
         output += `\n${styledFilePath(filePath)}\n`;
-        messages.forEach(
-          ({ ruleId, severity, message, line, column, endLine }) => {
-            const command = `git blame --date=relative --show-email -L ${line},${endLine} ${filePath}`;
-            const blame = execSync(command, { encoding: 'utf8' });
-            const rawLocation = `${line}:${column}`;
-            const status = severity === 1 ? WARNING : ERROR;
-            const commitMatch = blame.match(/^[^ ]+/) || [''];
-            const dateMatch = blame.match(/> (.+ ago)/) || ['', ''];
-            const emailMatch = blame.match(/<([^>]+)>/) || ['', ''];
-            const rightAlignLocations = ' '.repeat(
-              locationColumnWidth - rawLocation.length,
-            );
-            const leftAlignCommitsWithStatuses = ' '.repeat(
-              rightAlignLocations.length + rawLocation.length + gutter.length,
-            );
-            const location = styledLocation(rawLocation);
-            const rule = ruleId ? styledRule(ruleId) : '';
-            const commit = styledCommit(`${commitMatch[0]}`);
-            const date = styledDate(`(${dateMatch[1].trim()})`);
-            const email = styledEmail(`<${emailMatch[1]}>`);
-            output += `${rightAlignLocations}${location}${gutter}${status}${gutter}${message}${gutter}${rule}\n`;
-            output += `${leftAlignCommitsWithStatuses}${commit} ${email} ${date}\n`;
-          },
-        );
+        messages.forEach(({ ruleId, severity, message, line, column }) => {
+          const command = `git blame --date=relative --show-email -L ${line},${line} -- "${filePath}"`;
+          const blame = execSync(command, { encoding: 'utf8' });
+          const rawLocation = `${line}:${column}`;
+          const status = severity === 1 ? WARNING : ERROR;
+          const commitMatch = blame.match(/^[^ ]+/) || [''];
+          const dateMatch = blame.match(/> (.+ ago)/) || ['', ''];
+          const emailMatch = blame.match(/<([^>]+)>/) || ['', ''];
+          const rightAlignLocations = ' '.repeat(
+            locationColumnWidth - rawLocation.length,
+          );
+          const leftAlignCommitsWithStatuses = ' '.repeat(
+            rightAlignLocations.length + rawLocation.length + gutter.length,
+          );
+          const location = styledLocation(rawLocation);
+          const rule = ruleId ? styledRule(ruleId) : '';
+          const commit = styledCommit(`${commitMatch[0]}`);
+          const date = styledDate(`(${dateMatch[1].trim()})`);
+          const email = styledEmail(`<${emailMatch[1]}>`);
+          output += `${rightAlignLocations}${location}${gutter}${status}${gutter}${message}${gutter}${rule}\n`;
+          output += `${leftAlignCommitsWithStatuses}${commit} ${email} ${date}\n`;
+        });
       }
       return output;
     }, '');
