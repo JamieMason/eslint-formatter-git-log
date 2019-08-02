@@ -26,6 +26,20 @@ npm install --save-dev eslint eslint-formatter-git-log
 eslint --format 'git-log' file.js
 ```
 
+## 🎨 Output
+
+> Output is in colour, I will post a Screenshot soon.
+
+```
+/Users/john/Dev/company/packages/atoms/src/RadioButton.spec.js
+    2:10  warning  Use mount instead of shallow  enzyme-no-shallow
+          89e12fbf6e <john@company.com> (2 years, 10 months ago)
+  149:12  warning  Avoid .prop(…), instead inspect the DOM  enzyme-no-inspect-props
+          9ef37b58d7 <claire@company.com> (1 year, 1 month ago)
+  157:29  warning  Avoid .find(Icon), instead query the DOM via data-test-id attributes or visible text  enzyme-no-find-by-component
+          72ba2d188e <marloes@company.com> (11 months ago)
+```
+
 ## ⚖️ Configuration
 
 This formatter is written to be as customisable as possible. To create a
