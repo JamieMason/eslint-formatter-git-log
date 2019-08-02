@@ -20,6 +20,12 @@
 npm install --save-dev eslint eslint-formatter-git-log
 ```
 
+## 🕹 Usage
+
+```
+eslint --format=git-log file.js
+```
+
 ## ❓ Getting Help
 
 - Get help with issues by creating a
