@@ -4,11 +4,11 @@ const isWalkable = (value: any) =>
 const getChild = (parent: any, child: any): any =>
   isWalkable(parent) ? parent[child] : undefined;
 
-export const getIn = (
+export const getIn = <T>(
   pathToValue: string | number,
   owner?: any,
-  defaultValue?: any,
+  defaultValue?: T,
 ) => {
   const value = `${pathToValue}`.split('.').reduce(getChild, owner);
-  return value !== undefined ? value : defaultValue;
+  return value !== undefined ? (value as T) : defaultValue;
 };
