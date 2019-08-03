@@ -1,7 +1,7 @@
 {
   "name": "eslint-formatter-git-log",
   "description": "ESLint Formatter featuring Git Author, Date, and Hash",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Jamie Mason (https://github.com/JamieMason)",
   "bugs": "https://github.com/JamieMason/eslint-formatter-git-log/issues",
   "dependencies": {

@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.2.0...0.2.1) (2019-08-03)
+
+
+### Bug Fixes
+
+* **format:** ESLint doesn't always provide an endLine ([5663ee5](https://github.com/JamieMason/eslint-formatter-git-log/commit/5663ee5))
+
+
+
 # [0.2.0](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.1.0...0.2.0) (2019-08-02)
 
 
