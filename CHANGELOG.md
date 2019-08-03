@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.2.1...0.3.1) (2019-08-03)
+
+
+### Features
+
+* **format:** add support for personalised reports ([ae941c1](https://github.com/JamieMason/eslint-formatter-git-log/commit/ae941c1))
+
+
+
 ## [0.2.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.2.0...0.2.1) (2019-08-03)
 
 
