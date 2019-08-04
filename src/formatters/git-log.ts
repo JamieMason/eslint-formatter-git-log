@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import { execSync } from 'child_process';
+import { getUserEmail } from './get-user-email';
 import { getIn } from './lib/get-in';
 
 type DeepPartial<T> = {
@@ -285,6 +286,7 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
   };
 
   formatter.defaultConfig = defaultConfig;
+  formatter.getUserEmail = getUserEmail;
   formatter.withConfig = createGitLogFormatter;
   return formatter;
 };

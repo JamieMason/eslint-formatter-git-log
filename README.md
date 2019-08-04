@@ -65,25 +65,25 @@ that relates only to changes you yourself have made.
 
 ### Contributor Reports
 
-To roll out personalised reports across your Team, you need to be able to read
-the Git Committer Email from the current Contributor's Machine.
+To extend personalised reports to your Team, the Git Committer Email is needed.
 
-#### `git config`
+#### `gitLogFormatter.getUserEmail()`
+
+An optional helper is available at `gitLogFormatter.getUserEmail()` which reads
+`git config user.email` and feeds it through `git check-mailmap`.
 
 ```js
 const gitLogFormatter = require('eslint-formatter-git-log');
-const { execSync } = require('child_process');
-
-const email = execSync('git config --global user.email', {
-  encoding: 'utf8',
-}).trim();
 
 module.exports = gitLogFormatter.withConfig({
-  emailRegExp: new RegExp(email),
+  emailRegExp: new RegExp(gitLogFormatter.getUserEmail()),
 });
 ```
 
 #### `$GIT_COMMITTER_EMAIL`
+
+Alternatively, if your Team each have their `$GIT_COMMITTER_EMAIL` Environment
+Variable exported and reachable, then the following is enough.
 
 ```js
 const gitLogFormatter = require('eslint-formatter-git-log');
@@ -99,6 +99,7 @@ module.exports = gitLogFormatter.withConfig({
 - [Setting your commit email address](https://help.github.com/en/articles/setting-your-commit-email-address)
 - [Configure git to not guess `user.email`](https://stackoverflow.com/questions/19821895/can-i-configure-git-so-it-does-not-guess-user-email-configuration-settings)
 - [`git config`](https://git-scm.com/docs/git-config)
+- [`git check-mailmap`](https://www.git-scm.com/docs/git-check-mailmap)
 - [`$GIT_COMMITTER_EMAIL`](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)
 
 ## ⚖️ Configuration
