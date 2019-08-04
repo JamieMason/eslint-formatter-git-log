@@ -120,6 +120,13 @@ module.exports = gitLogFormatter.withConfig({
   label: {
     error: 'error',
     warning: 'warning',
+    banner: 'REPORT COMPLETE',
+    totalFiles: 'Files',
+    totalAssignees: 'Assignees',
+    totalWarningsByEmail: `Warnings assigned to %s`,
+    totalErrorsByEmail: `Errors assigned to %s`,
+    totalWarnings: 'Warnings',
+    totalErrors: 'Errors',
   },
   // Increase if you have files with 1000s of lines
   locationColumnWidth: 8,

@@ -52,6 +52,20 @@ interface FinalConfig {
     error: string;
     /** @example "warning" */
     warning: string;
+    /** @example "REPORT COMPLETE" */
+    banner: string;
+    /** @example "Files" */
+    totalFiles: string;
+    /** @example "Assignees" */
+    totalAssignees: string;
+    /** @example "Warnings assigned to %s" */
+    totalWarningsByEmail: string;
+    /** @example "Errors assigned to %s" */
+    totalErrorsByEmail: string;
+    /** @example "Warnings" */
+    totalWarnings: string;
+    /** @example "Errors" */
+    totalErrors: string;
   };
   /** Increase if you have files with 1000s of lines */
   locationColumnWidth: number;
@@ -92,6 +106,13 @@ export const defaultConfig: FinalConfig = Object.freeze({
   label: {
     error: 'error',
     warning: 'warning',
+    banner: 'REPORT COMPLETE',
+    totalFiles: 'Files',
+    totalAssignees: 'Assignees',
+    totalWarningsByEmail: `Warnings assigned to %s`,
+    totalErrorsByEmail: `Errors assigned to %s`,
+    totalWarnings: 'Warnings',
+    totalErrors: 'Errors',
   },
   locationColumnWidth: 8,
   style: {
@@ -117,6 +138,17 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
     const locationColumnWidth = getConfig<number>('locationColumnWidth');
     const errorLabel = getConfig<string>('label.error');
     const warningLabel = getConfig<string>('label.warning');
+    const bannerLabel = getConfig<string>('label.banner');
+    const totalFilesLabel = getConfig<string>('label.totalFiles');
+    const totalAssigneesLabel = getConfig<string>('label.totalAssignees');
+    const totalWarningsByEmailLabel = getConfig<string>(
+      'label.totalWarningsByEmail',
+    ).replace('%s', `${emailRegExp}`);
+    const totalErrorsByEmailLabel = getConfig<string>(
+      'label.totalErrorsByEmail',
+    ).replace('%s', `${emailRegExp}`);
+    const totalWarningsLabel = getConfig<string>('label.totalWarnings');
+    const totalErrorsLabel = getConfig<string>('label.totalErrors');
     const styledError = getConfig<typeof chalk>('style.error');
     const styledFilePath = getConfig<typeof chalk>('style.filePath');
     const styledWarning = getConfig<typeof chalk>('style.warning');
@@ -231,24 +263,22 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
       return output;
     }, '');
 
-    const banner = chalk.inverse(' REPORT COMPLETE ');
+    const banner = chalk.inverse(` ${bannerLabel} `);
 
     let footer = '';
 
     if (emailRegExp) {
       const totalWarnings = `${total.userWarnings}/${total.warnings}`;
       const totalErrors = `${total.userErrors}/${total.errors}`;
-      const totalWarningsLabel = `Warnings assigned to ${emailRegExp}`;
-      const totalErrorsLabel = `Errors assigned to ${emailRegExp}`;
-      footer += `${cols(results.length, 'Files')}\n`;
-      footer += `${cols(totalWarnings, totalWarningsLabel)}\n`;
-      footer += `${cols(totalErrors, totalErrorsLabel)}\n`;
-      footer += `${cols(authors.size, 'Assignees')}\n`;
+      footer += `${cols(results.length, totalFilesLabel)}\n`;
+      footer += `${cols(totalWarnings, totalWarningsByEmailLabel)}\n`;
+      footer += `${cols(totalErrors, totalErrorsByEmailLabel)}\n`;
+      footer += `${cols(authors.size, totalAssigneesLabel)}\n`;
     } else {
-      footer += `${cols(results.length, 'Files')}\n`;
-      footer += `${cols(total.warnings, 'Warnings')}\n`;
-      footer += `${cols(total.errors, 'Errors')}\n`;
-      footer += `${cols(authors.size, 'Assignees')}\n`;
+      footer += `${cols(results.length, totalFilesLabel)}\n`;
+      footer += `${cols(total.warnings, totalWarningsLabel)}\n`;
+      footer += `${cols(total.errors, totalErrorsLabel)}\n`;
+      footer += `${cols(authors.size, totalAssigneesLabel)}\n`;
     }
 
     return `${body}\n${banner}\n\n${footer}`;
