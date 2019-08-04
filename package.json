@@ -25,9 +25,14 @@
   "homepage": "https://github.com/JamieMason/eslint-formatter-git-log",
   "keywords": [
     "eslint",
-    "eslint",
     "eslint-formatter",
-    "eslintformatter"
+    "eslintformatter",
+    "formatter",
+    "git",
+    "git-log",
+    "lint",
+    "reporter",
+    "validate"
   ],
   "license": "MIT",
   "main": "dist/index.js",
