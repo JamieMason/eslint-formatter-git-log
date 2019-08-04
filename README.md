@@ -30,26 +30,18 @@ option to `git-log` as follows:
 eslint --format git-log './src/**/*.js'
 ```
 
-## Examples
+## 👀 Examples
 
 ### Full Report
 
-By default the formatter will display a report of every error or warning in the
-codebase:
+By default, a report of every Error or Warning in the Codebase is displayed:
 
 ![screenshot](static/screenshot.png)
 
 ### Personalised Reports
 
-If you work with a lot of Developers in a large Organisation or Codebase —
-introducing new rules is a great way to codify conventions and ensure quality at
-scale. However, when a new rule applies to a particularly prevalent coding
-pattern, it can result in every Developer being presented with a huge list of
-warnings.
-
-Rather than disabling these rules completely, an alternative can be to only
-present each Developer with Errors and Warnings that relate to changes they
-themselves have made.
+When an `emailRegExp` is provided such as `/you@yours.com/`, a report is shown
+that relates only to changes you yourself have made.
 
 1. Create a file in your project which follows the structure below.
 
@@ -57,15 +49,9 @@ themselves have made.
    const gitLogFormatter = require('eslint-formatter-git-log');
 
    module.exports = gitLogFormatter.withConfig({
-     emailRegExp: new RegExp(process.env.GIT_COMMITTER_EMAIL),
+     emailRegExp: /you@yours.com/,
    });
    ```
-
-   In this example we require that the
-   [Git Environment Variable](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)
-   `GIT_COMMITTER_EMAIL` is exported and reachable but, since this is an
-   ordinary Node.js Script, the Email Address can be retrieved from the current
-   Contributor's Machine in any way you prefer.
 
 2. Set ESLint's
    [`--format`](https://eslint.org/docs/user-guide/command-line-interface#-f---format)
@@ -76,6 +62,44 @@ themselves have made.
    ```
 
 ![screenshot](static/screenshot-when-filtered.png)
+
+### Contributor Reports
+
+To roll out personalised reports across your Team, you need to be able to read
+the Git Committer Email from the current Contributor's Machine.
+
+#### `git config`
+
+```js
+const gitLogFormatter = require('eslint-formatter-git-log');
+const { execSync } = require('child_process');
+
+const email = execSync('git config --global user.email', {
+  encoding: 'utf8',
+}).trim();
+
+module.exports = gitLogFormatter.withConfig({
+  emailRegExp: new RegExp(email),
+});
+```
+
+#### `$GIT_COMMITTER_EMAIL`
+
+```js
+const gitLogFormatter = require('eslint-formatter-git-log');
+
+module.exports = gitLogFormatter.withConfig({
+  emailRegExp: new RegExp(process.env.GIT_COMMITTER_EMAIL),
+});
+```
+
+#### References
+
+- [First-time git setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
+- [Setting your commit email address](https://help.github.com/en/articles/setting-your-commit-email-address)
+- [Configure git to not guess `user.email`](https://stackoverflow.com/questions/19821895/can-i-configure-git-so-it-does-not-guess-user-email-configuration-settings)
+- [`git config`](https://git-scm.com/docs/git-config)
+- [`$GIT_COMMITTER_EMAIL`](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)
 
 ## ⚖️ Configuration
 
