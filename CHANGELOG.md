@@ -1,3 +1,13 @@
+## [0.5.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.3.1...0.5.1) (2019-08-04)
+
+
+### Features
+
+* **format:** add .getUserEmail() method to aid with filtered reports ([f7e3d87](https://github.com/JamieMason/eslint-formatter-git-log/commit/f7e3d87))
+* **format:** expose more configuration ([e985cce](https://github.com/JamieMason/eslint-formatter-git-log/commit/e985cce))
+
+
+
 ## [0.3.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.2.1...0.3.1) (2019-08-03)
 
 
