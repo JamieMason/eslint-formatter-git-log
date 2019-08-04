@@ -9,7 +9,7 @@
 [![Follow JamieMason on GitHub](https://img.shields.io/github/followers/JamieMason.svg?style=social&label=Follow)](https://github.com/JamieMason)
 [![Follow fold_left on Twitter](https://img.shields.io/twitter/follow/fold_left.svg?style=social&label=Follow)](https://twitter.com/fold_left)
 
-## ☁️ Installation
+## 🌩 Installation
 
 ```
 npm install --save-dev eslint eslint-formatter-git-log
@@ -148,7 +148,7 @@ module.exports = gitLogFormatter.withConfig({
 });
 ```
 
-## ❓ Getting Help
+## 🙋🏾‍♀️ Getting Help
 
 - Get help with issues by creating a
   [Bug Report](https://github.com/JamieMason/eslint-formatter-git-log/issues/new?template=bug_report.md).
