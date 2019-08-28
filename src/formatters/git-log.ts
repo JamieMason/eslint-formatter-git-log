@@ -233,6 +233,11 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
     const body = results.reduce((output, result) => {
       if (result.messages.length > 0) {
         const items = result.messages
+          .map((message) => {
+            message.column = message.column || 1;
+            message.line = message.line || 1;
+            return message;
+          })
           .map(mergeMessageWith(result))
           .map((item) => {
             authors.add(item.email);
