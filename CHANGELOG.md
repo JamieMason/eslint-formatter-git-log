@@ -1,3 +1,13 @@
+## [0.5.3](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.5.1...0.5.3) (2019-08-28)
+
+
+### Bug Fixes
+
+* **format:** handle undefined file locations ([860ac92](https://github.com/JamieMason/eslint-formatter-git-log/commit/860ac92))
+* **npm:** update dependencies ([e6f3143](https://github.com/JamieMason/eslint-formatter-git-log/commit/e6f3143))
+
+
+
 ## [0.5.1](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.3.1...0.5.1) (2019-08-04)
 
 
