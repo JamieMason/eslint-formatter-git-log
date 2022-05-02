@@ -1,3 +1,4 @@
+import type { Chalk } from 'chalk';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { getUserEmail } from './get-user-email';
@@ -73,21 +74,21 @@ interface FinalConfig {
   /** Which methods of https://github.com/chalk/chalk to use when formatting */
   style: {
     /** @example "error" */
-    error: typeof chalk;
+    error: Chalk;
     /** @example "/Users/guybrush/Dev/grogrates/src/index.js" */
-    filePath: typeof chalk;
+    filePath: Chalk;
     /** @example "warning" */
-    warning: typeof chalk;
+    warning: Chalk;
     /** @example "161:12" */
-    location: typeof chalk;
+    location: Chalk;
     /** @example "no-process-exit" */
-    rule: typeof chalk;
+    rule: Chalk;
     /** @example "bda304e570" */
-    commit: typeof chalk;
+    commit: Chalk;
     /** @example "(1 year, 2 months ago)" */
-    date: typeof chalk;
+    date: Chalk;
     /** @example "<guybrush@threepwood.grog>" */
-    email: typeof chalk;
+    email: Chalk;
   };
 }
 
@@ -150,38 +151,38 @@ export const createGitLogFormatter: CreateGitLogFormatter = (config) => {
     ).replace('%s', `${emailRegExp}`);
     const totalWarningsLabel = getConfig<string>('label.totalWarnings');
     const totalErrorsLabel = getConfig<string>('label.totalErrors');
-    const styledError = getConfig<typeof chalk>('style.error');
-    const styledFilePath = getConfig<typeof chalk>('style.filePath');
-    const styledWarning = getConfig<typeof chalk>('style.warning');
-    const styledLocation = getConfig<typeof chalk>('style.location');
-    const styledRule = getConfig<typeof chalk>('style.rule');
-    const styledCommit = getConfig<typeof chalk>('style.commit');
-    const styledDate = getConfig<typeof chalk>('style.date');
-    const styledEmail = getConfig<typeof chalk>('style.email');
+    const styledError = getConfig<Chalk>('style.error');
+    const styledFilePath = getConfig<Chalk>('style.filePath');
+    const styledWarning = getConfig<Chalk>('style.warning');
+    const styledLocation = getConfig<Chalk>('style.location');
+    const styledRule = getConfig<Chalk>('style.rule');
+    const styledCommit = getConfig<Chalk>('style.commit');
+    const styledDate = getConfig<Chalk>('style.date');
+    const styledEmail = getConfig<Chalk>('style.email');
     const WARNING = styledWarning(warningLabel);
     const ERROR = styledError(errorLabel);
 
-    const mergeMessageWith = (result: EslintResult) => (
-      message: EslintMessage,
-    ): ResultItem => {
-      const { filePath } = result;
-      const { line } = message;
-      const command = `git blame --date=relative --show-email -L ${line},${line} -- "${filePath}"`;
-      const blame = execSync(command, { encoding: 'utf8' });
-      const commitMatch = blame.match(/^[^ ]+/) || [''];
-      const dateMatch = blame.match(/> (.+ ago)/) || ['', ''];
-      const emailMatch = blame.match(/<([^>]+)>/) || ['', ''];
-      const commit = commitMatch[0];
-      const date = dateMatch[1].trim();
-      const email = emailMatch[1];
-      return {
-        commit,
-        date,
-        email,
-        message,
-        result,
+    const mergeMessageWith =
+      (result: EslintResult) =>
+      (message: EslintMessage): ResultItem => {
+        const { filePath } = result;
+        const { line } = message;
+        const command = `git blame --date=relative --show-email -L ${line},${line} -- "${filePath}"`;
+        const blame = execSync(command, { encoding: 'utf8' });
+        const commitMatch = blame.match(/^[^ ]+/) || [''];
+        const dateMatch = blame.match(/> (.+ ago)/) || ['', ''];
+        const emailMatch = blame.match(/<([^>]+)>/) || ['', ''];
+        const commit = commitMatch[0];
+        const date = dateMatch[1].trim();
+        const email = emailMatch[1];
+        return {
+          commit,
+          date,
+          email,
+          message,
+          result,
+        };
       };
-    };
 
     const rightAlignToCol1 = (col1Contents: string) =>
       ' '.repeat(locationColumnWidth - col1Contents.length);
