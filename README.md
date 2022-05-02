@@ -123,14 +123,7 @@ module.exports = gitLogFormatter.withConfig({
   // Translations for plain text used when formatting
   label: {
     error: 'error',
-    warning: 'warning',
-    banner: 'REPORT COMPLETE',
-    totalFiles: 'Files',
-    totalAssignees: 'Assignees',
-    totalWarningsByEmail: `Warnings assigned to %s`,
-    totalErrorsByEmail: `Errors assigned to %s`,
-    totalWarnings: 'Warnings',
-    totalErrors: 'Errors',
+    warning: 'warning'
   },
   // Increase if you have files with 1000s of lines
   locationColumnWidth: 8,
