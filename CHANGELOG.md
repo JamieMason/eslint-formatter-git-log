@@ -1,3 +1,12 @@
+## [0.6.4](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.5.4...0.6.4) (2022-05-02)
+
+
+### Features
+
+* **output:** remove footer containing totals of each type of entry ([9a85f42](https://github.com/JamieMason/eslint-formatter-git-log/commit/9a85f4266962203861c0eb6143f7c7f04af839c9)), closes [#2](https://github.com/JamieMason/eslint-formatter-git-log/issues/2)
+
+
+
 ## [0.5.4](https://github.com/JamieMason/eslint-formatter-git-log/compare/0.5.3...0.5.4) (2022-05-02)
 
 
